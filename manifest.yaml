@@ -1,0 +1,13 @@
+ref: wranders/${basearch}/fcos-k3s/stable
+include: fedora-coreos-config/manifest.yaml
+
+rojig:
+  license: MIT
+  name: fcos-k3s
+  summary: Fedora CoreOS k3s
+
+packages:
+- k3s-selinux
+
+repos:
+- rancher-k3s-common-stable
