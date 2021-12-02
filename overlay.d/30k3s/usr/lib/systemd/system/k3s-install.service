@@ -1,0 +1,12 @@
+[Unit]
+Wants=network-online.service
+After=network-online.service
+
+[Service]
+Type=oneshot
+ExecCondition=/bin/bash -xc '/usr/bin/systemctl is-active --quiet k3s.service && exit 1 || exit 0'
+ExecStart=/usr/libexec/k3s/install.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
