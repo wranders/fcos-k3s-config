@@ -4,7 +4,10 @@ After=network-online.service
 
 [Service]
 Type=oneshot
+Environment=INSTALL_K3S_SKIP_DOWNLOAD=true
+Environment=INSTALL_K3S_VERSION=v1.22.4+k3s1
 ExecCondition=/bin/bash -xc '/usr/bin/systemctl is-active --quiet k3s.service && exit 1 || exit 0'
+ExecStartPre=/bin/bash -x /usr/lib/k3s/prepare.sh
 ExecStart=/usr/libexec/k3s/install.sh
 RemainAfterExit=yes
 
