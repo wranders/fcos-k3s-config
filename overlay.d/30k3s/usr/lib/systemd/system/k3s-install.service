@@ -1,14 +1,18 @@
 [Unit]
-Wants=network-online.service
-After=network-online.service
+Description=Install k3s
+After=network-online.target
+Wants=network-online.target
+Before=systemd-user-sessions.service
+OnFailure=emergency.target
+OnFailureJobMode=replace-irreversibly
+ConditionPathExists=/etc/rancher/k3s/config.yaml
+ConditionPathExists=!/etc/rancher/k3s/unit-installed
 
 [Service]
 Type=oneshot
-Environment=INSTALL_K3S_SKIP_DOWNLOAD=true
-ExecCondition=/bin/bash -xc '/usr/bin/systemctl is-active --quiet k3s.service && exit 1 || exit 0'
-ExecStartPre=/bin/bash -x /usr/lib/k3s/prepare.sh
-ExecStart=/usr/libexec/k3s/install.sh
-RemainAfterExit=yes
+ExecStart=/usr/lib/k3s/install.sh
+ExecStartPost=/usr/bin/touch /etc/rancher/k3s/unit-installed
+RemainAfterExit=true
 
 [Install]
-WantedBy=multi-user.target
+RequiredBy=multi-user.target
