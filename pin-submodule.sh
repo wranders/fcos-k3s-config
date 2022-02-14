@@ -135,6 +135,8 @@ pinK3S() {
         tag=$(echo $latest_release | jq -r '.tag_name')
     fi
     git -C $DIR_K3S reset --hard tags/$tag
+    status=$?
+    [ $status -ne 0 ] && exit $status
     dropinPath="overlay.d/30k3s/usr/lib/systemd/system/k3s-install.service.d"
     dropinContent="[Service]\nEnvironment=INSTALL_K3S_VERSION=$tag"
     echo -e $dropinContent > "${dropinPath}/10-pin-version.conf"
