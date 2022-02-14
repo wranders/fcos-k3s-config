@@ -54,8 +54,8 @@ buildManifest() {
     MANIFEST_CONTENTS=$(echo "$MANIFEST_CONTENTS" | sed "s/$search/$replace/")
 
     # Set Distribution ref
-    search="^ref: wranders\/\${basearch}\/fcos-k3s\/.*"
-    replace="ref: wranders\/\${basearch}\/fcos-k3s\/$branch"
+    search="^ref: fedora\/\${basearch}\/coreos\/k3s\/.*"
+    replace="ref: fedora\/\${basearch}\/coreos\/k3s\/$branch"
     MANIFEST_CONTENTS=$(echo "$MANIFEST_CONTENTS" | sed "s/$search/$replace/")
 }
 
