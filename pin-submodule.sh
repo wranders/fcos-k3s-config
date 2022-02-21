@@ -89,7 +89,9 @@ pinConfig() {
     cd overlay.d && \
         for f in ../fedora-coreos-config/overlay.d/*; do ln -s $f; done &&
         cd -
+
     files=(
+        fedora.repo
         fedora-coreos-pool.repo
         manifest-lock.aarch64.json
         manifest-lock.overrides.yaml
