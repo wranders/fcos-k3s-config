@@ -28,6 +28,9 @@ MANIFEST_CONTENTS=$(cat $MANIFEST_TEMPLATE)
 ################################################################################
 buildManifest() {
     local remote=$(git -C fedora-coreos-config branch --remote --contains)
+    if [[ $remote == *"->"* ]]; then
+        remote=$(echo $remote | awk -F'-> .* ' '{print $2}' | cut -d/ -f2)
+    fi
     local branch=$(echo $remote | cut -d/ -f2)
     local stream=""
     # Determined in accordance with 
