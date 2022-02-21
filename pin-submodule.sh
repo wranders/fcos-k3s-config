@@ -79,7 +79,7 @@ pinConfig() {
     git -C $DIR_CONFIG fetch --all
     git submodule set-branch --branch $branch $DIR_CONFIG
     if [ $latest = true ]; then
-        git submodule update --remote --merge $DIR_CONFIG
+        git submodule update --remote --checkout $DIR_CONFIG
     fi
     if [[ $commit != "" ]]; then
         git -C $DIR_CONFIG reset --hard $commit
