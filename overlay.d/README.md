@@ -16,5 +16,5 @@ Refer to the base [`overlay.d`](../fedora-coreos-config/overlay.d/)
 
 ## Customizations
 
-* `30k3s` - Contains `systemd` units and configuration files for
+* `99k3s` - Contains `systemd` units and configuration files for
 [k3s](https://k3s.io/)
