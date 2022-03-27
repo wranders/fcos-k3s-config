@@ -1,4 +1,4 @@
-ref: fedora/${basearch}/coreos/k3s/testing-devel
+ref: fedora/${basearch}/coreos/k3s/stable
 include: fedora-coreos-config/manifest.yaml
 
 rojig:
@@ -6,7 +6,7 @@ rojig:
   name: fcos-k3s
   summary: Fedora CoreOS k3s
 
-automatic-version-prefix: "${releasever}.<date:%Y%m%d>.20-v1.22.4-k3s1"
+automatic-version-prefix: "${releasever}.<date:%Y%m%d>.3-v1.22.4-k3s1"
 
 repos:
 - rancher-k3s-common-stable

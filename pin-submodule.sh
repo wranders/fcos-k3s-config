@@ -85,20 +85,17 @@ pinConfig() {
         git -C $DIR_CONFIG reset --hard $commit
     fi
 
-    find ./overlay.d/ -type l -delete
-    cd overlay.d && \
-        for f in ../fedora-coreos-config/overlay.d/*; do ln -s $f; done &&
-        cd -
+    # Clean and relink root files
+    find . -maxdepth 1 -type l -exec unlink {} \;
+    for f in fedora-coreos-config/manifest-lock.*; do ln -s "$f"; done
+    ln -s fedora-coreos-config/fedora-coreos-pool.repo
+    ln -s fedora-coreos-config/live
 
-    files=(
-        fedora.repo
-        fedora-coreos-pool.repo
-        manifest-lock.aarch64.json
-        manifest-lock.overrides.yaml
-        manifest-lock.x86_64.json
-    )
-    for f in $files; do unlink $f; done
-    for f in $files; do ln -s ./fedora-coreos-config/$f; done
+    # Clean and relink overlays
+    cd overlay.d
+    find . -maxdepth 1 -type l -exec unlink {} \;
+    for f in ../fedora-coreos-config/overlay.d/*/; do ln -s ${f%*/}; done
+    cd ..
 }
 
 ################################################################################
