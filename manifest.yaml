@@ -18,3 +18,6 @@ repo-packages:
 
 add-files:
 - ["./k3s/install.sh", "/usr/lib/k3s/install.sh"]
+
+ostree-layers:
+- overlay/99k3s
