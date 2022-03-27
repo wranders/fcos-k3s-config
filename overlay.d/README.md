@@ -1,7 +1,6 @@
 # Overlays
 
-The following overlays are imported from the base
-[fedora-coreos-config](../fedora-coreos-config/).
+The following overlays are imported from the base `fedora-coreos-config`.
 
 * `05core`
 * `08nouveau`
@@ -11,8 +10,7 @@ The following overlays are imported from the base
 * `20platform-chrony`
 * `35coreos-iptables`
 
-Refer to the base [`overlay.d`](../fedora-coreos-config/overlay.d/)
-[`README.md`](../fedora-coreos-config/overlay.d/README.md).
+Refer to the base `overlay.d` `README.md`.
 
 ## Customizations
 
