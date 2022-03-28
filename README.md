@@ -83,7 +83,7 @@ following `systemd` drop-in to the install service:
 ```yaml
 systemd:
   units:
-  - name: k3s-install.service
+  - name: install-k3s.service
     dropins:
     - name: skip-download.conf
       contents: |
