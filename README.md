@@ -7,27 +7,46 @@ Fedora CoreOS with packages required to run k3s.
 Build with [`coreos-assembler`](https://github.com/coreos/coreos-assembler).
 
 The k3s install script is located at `/usr/lib/k3s/install.sh` and will be
-automatically run post-ignition. ***(Not true at the moment. Still a WIP, but
-will be the intent)***
+automatically run post-ignition: immediately if PXE/Live, or after reboot is
+installed to disk
 
 To configure k3s, define a config file at `/etc/rancher/k3s/config.yaml` in your
-Ignition file. Configuration options are `k3s server` options without the
-preceding `--`.
+Ignition file. Configuration options are arguments without the preceding `--`.
 
-Using `butane`:
+* [`server` arguments](https://rancher.com/docs/k3s/latest/en/installation/install-options/server-config/)
+* [`agent` arguments](https://rancher.com/docs/k3s/latest/en/installation/install-options/agent-config/)
+
+A `server` installation is performed if `server: <URL>` is missing from the
+`config.yaml` file. Inversely, an `agent` installation is performed if it is
+present, though remember to also specify the `token` value.
+
+Install `server` using `butane`:
 
 ```yaml
 storage:
   files:
-    - path: /etc/rancher/k3s/config.yaml
-      contents:
-        inline: |
-          write-kubeconfig-mode: 644
-          token: "secret"
-          node-ip: 10.0.10.22,2a05:d012:c6f:4655:d73c:c825:a184:1b75 
-          cluster-cidr: 10.42.0.0/16,2001:cafe:42:0::/56
-          service-cidr: 10.43.0.0/16,2001:cafe:42:1::/112
-          disable-network-policy: true
+  - path: /etc/rancher/k3s/config.yaml
+    contents:
+      inline: |
+        write-kubeconfig-mode: 644
+        token: "secrett0ken"
+        disable:
+        - local-storage
+        - traefik
+        tls-san:
+        - "k3ssrv01.local"
+```
+
+Install `agent` using `butane`:
+
+```yaml
+storage:
+  files:
+  - path: /etc/rancher/k3s/config.yaml
+    contents:
+      inline: |
+        server: https://k3ssrv01.local:6443
+        token: "secrett0ken"
 ```
 
 ### Air-Gap Install
