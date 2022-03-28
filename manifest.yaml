@@ -20,4 +20,4 @@ add-files:
 - ["./k3s/install.sh", "/usr/lib/k3s/install.sh"]
 
 ostree-layers:
-- overlay/99k3s
+- overlay/95k3s

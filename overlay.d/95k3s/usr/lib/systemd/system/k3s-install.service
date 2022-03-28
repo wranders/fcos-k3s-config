@@ -1,18 +1,16 @@
 [Unit]
 Description=Install k3s
-After=network-online.target
-Wants=network-online.target
-Before=systemd-user-sessions.service
-OnFailure=emergency.target
-OnFailureJobMode=replace-irreversibly
+After=coreos-installer.service
+Before=coreos-installer.target
 ConditionPathExists=/etc/rancher/k3s/config.yaml
 ConditionPathExists=!/etc/rancher/k3s/unit-installed
 
 [Service]
 Type=oneshot
-ExecStart=/usr/lib/k3s/install.sh
+StandardOutput=journal+console
+ExecStart=/usr/lib/k3s/install.sh server --config /etc/rancher/k3s/config.yaml
 ExecStartPost=/usr/bin/touch /etc/rancher/k3s/unit-installed
 RemainAfterExit=true
 
 [Install]
-RequiredBy=multi-user.target
+RequiredBy=coreos-installer.target
