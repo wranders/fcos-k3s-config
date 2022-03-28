@@ -17,7 +17,7 @@ repo-packages:
   - k3s-selinux
 
 add-files:
-- ["./k3s/install.sh", "/usr/lib/k3s/install.sh"]
+- ["./k3s/install.sh", "/usr/libexec/k3s-install"]
 
 ostree-layers:
 - overlay/95k3s

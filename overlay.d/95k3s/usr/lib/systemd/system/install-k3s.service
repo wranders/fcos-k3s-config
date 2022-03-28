@@ -8,7 +8,7 @@ ConditionPathExists=!/etc/rancher/k3s/unit-installed
 
 [Service]
 Type=oneshot
-ExecStart=/usr/lib/k3s/install.sh
+ExecStart=/usr/libexec/k3s-install
 ExecStartPost=/usr/bin/touch /etc/rancher/k3s/unit-installed
 RemainAfterExit=true
 StandardOutput=journal+console
