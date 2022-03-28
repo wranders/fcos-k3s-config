@@ -1,1 +1,2 @@
 enable k3s-install.service
+enable shutdown-k3s.service

@@ -1,0 +1,13 @@
+[Unit]
+Description=Shutdown k3s
+DefaultDependencies=no
+Before=shutdown.target
+ConditionPathExists=/etc/rancher/k3s/unit-installed
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/k3s-killall.sh
+TimeoutStartSec=0
+
+[Install]
+WantedBy=shutdown.target
