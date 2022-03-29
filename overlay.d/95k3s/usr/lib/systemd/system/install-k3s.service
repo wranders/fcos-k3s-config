@@ -1,0 +1,18 @@
+[Unit]
+Description=Install k3s
+After=coreos-ignition-firstboot-complete.service
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/etc/rancher/k3s/config.yaml
+ConditionPathExists=!/etc/rancher/k3s/unit-installed
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/k3s-install
+ExecStartPost=/usr/bin/touch /etc/rancher/k3s/unit-installed
+RemainAfterExit=true
+StandardOutput=journal+console
+StandardError=journal+console
+
+[Install]
+RequiredBy=multi-user.target

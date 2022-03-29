@@ -1,0 +1,23 @@
+ref: fedora/${basearch}/coreos/k3s/${stream}
+include: fedora-coreos-config/manifest.yaml
+
+rojig:
+  license: MIT
+  name: fcos-k3s
+  summary: Fedora CoreOS k3s
+
+automatic-version-prefix: "${releasever}.<date:%Y%m%d>.${streamVer}-${k3sVer}"
+
+repos:
+- rancher-k3s-common-stable
+
+repo-packages:
+- repo: rancher-k3s-common-stable
+  packages:
+  - k3s-selinux
+
+add-files:
+- ["./k3s/install.sh", "/usr/libexec/k3s-install"]
+
+ostree-layers:
+- overlay/99k3s

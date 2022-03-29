@@ -1,0 +1,8 @@
+[submodule "fedora-coreos-config"]
+	path = fedora-coreos-config
+	url = https://github.com/coreos/fedora-coreos-config.git
+	branch = stable
+[submodule "k3s"]
+	path = k3s
+	url = https://github.com/k3s-io/k3s.git
+	branch = master
