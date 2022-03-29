@@ -3,13 +3,14 @@ Description=Install k3s
 After=coreos-ignition-firstboot-complete.service
 After=network-online.target
 Wants=network-online.target
-ConditionPathExists=/etc/rancher/k3s/config.yaml
-ConditionPathExists=!/etc/rancher/k3s/unit-installed
+ConditionPathExists=!/etc/rancher/k3s-installed
 
 [Service]
 Type=oneshot
+ExecCondition=/usr/bin/bash -c '[[ -f /etc/rancher/k3s/config.yaml ]] || [[ -n $K3S_URL ]]'
+ExecStartPre=/usr/bin/mkdir -p /etc/rancher
 ExecStart=/usr/libexec/k3s-install
-ExecStartPost=/usr/bin/touch /etc/rancher/k3s/unit-installed
+ExecStartPost=/usr/bin/touch /etc/rancher/k3s-installed
 RemainAfterExit=true
 StandardOutput=journal+console
 StandardError=journal+console

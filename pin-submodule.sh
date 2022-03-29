@@ -66,6 +66,11 @@ pinConfig() {
             l)  latest=true     ;;
         esac
     done
+    if [[ $branch == "" ]]; then
+        usageConfig
+        echo "Option \"-b\" is required"
+        exit 1
+    fi
     if [ $latest = true ] && [[ $commit != "" ]]; then
         usageConfig
         echo "Option \"-l\" and \"-c\" conflict"
@@ -149,7 +154,7 @@ pinK3S() {
     git -C $DIR_K3S reset --hard tags/$tag
     status=$?
     [ $status -ne 0 ] && exit $status
-    dropinPath="overlay.d/30k3s/usr/lib/systemd/system/k3s-install.service.d"
+    dropinPath="overlay.d/95k3s/usr/lib/systemd/system/install-k3s.service.d"
     dropinContent="[Service]\nEnvironment=INSTALL_K3S_VERSION=$tag"
     echo -e $dropinContent > "${dropinPath}/10-pin-version.conf"
 }
